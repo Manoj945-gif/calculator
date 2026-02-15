@@ -1,30 +1,75 @@
-let input=document.getElementById('inputBox');
-let buttons=document.querySelectorAll('button');
+// Scroll Reveal
+window.addEventListener("scroll", function () {
+  document.querySelectorAll(".reveal").forEach(function (el) {
+    if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+      el.classList.add("active");
+    }
+  });
+});
+const result = document.getElementById("result");
 
-let string="";
-let arr=Array.from(buttons);
-arr.forEach(button =>{
-    button.addEventListener('click',(e) =>{
-        if(e.target.innerHTML == '='){
-            string = eval(string);
-            input.value = string;
+function appendValue(value) {
+  result.value += value;
+}
 
-        }
-        else if(e.target.innerHTML=='C'){
-         string=" ";
-         input.value=string;
-        }
-        else if(e.target.innerHTML == 'Del'){
-            string=string.substring(0,string.length-1);
-            input.value=string;
-        }
-        else{
-            string +=e.target.innerHTML;
-            input.value=string;
-        }
-        
+function clearResult() {
+  result.value = "";
+}
 
+function deleteLast() {
+  result.value = result.value.slice(0, -1);
+}
 
-        
-    })
-})
+function calculate() {
+  try {
+    result.value = eval(result.value);
+  } catch {
+    result.value = "Error";
+  }
+}
+
+/* Keyboard Support */
+document.addEventListener("keydown", function(event) {
+  const key = event.key;
+
+  if (!isNaN(key) || ["+", "-", "*", "/", ".", "%"].includes(key)) {
+    appendValue(key);
+  } else if (key === "Enter") {
+    calculate();
+  } else if (key === "Backspace") {
+    deleteLast();
+  } else if (key === "Escape") {
+    clearResult();
+  }
+});
+
+// THREE JS
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({
+  canvas: document.querySelector('#bg'),
+  alpha: true
+});
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+camera.position.z = 5;
+
+const geometry = new THREE.TorusKnotGeometry(1, 0.3, 100, 16);
+const material = new THREE.MeshStandardMaterial({
+  color: 0x00f2ff,
+  wireframe: true
+});
+const torus = new THREE.Mesh(geometry, material);
+scene.add(torus);
+
+const light = new THREE.PointLight(0xffffff);
+light.position.set(5,5,5);
+scene.add(light);
+
+function animate() {
+  requestAnimationFrame(animate);
+  torus.rotation.x += 0.01;
+  torus.rotation.y += 0.01;
+  renderer.render(scene, camera);
+}
+animate();
