@@ -1,59 +1,98 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-*{
-    margin:0;
-    padding:0;
-    box-sizing: border-box;
-    font-family: "Poppins";
-    /* font-weight: 100; */
-    /* font-style: normal; */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-body{
-    width: 100vh;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background:linear-gradient(45deg,#0a0a0a,#3a4452);
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #1e1e2f, #2a2a40);
 }
-.contanier{
-    border:1px solid black;
+
+.calculator {
+  background: #252538;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  width: 350px;
+  max-width: 95%;
+}
+
+.display input {
+  width: 100%;
+  height: 70px;
+  border: none;
+  outline: none;
+  background: #1a1a2e;
+  color: #fff;
+  font-size: 28px;
+  text-align: right;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+button {
+  height: 60px;
+  border: none;
+  border-radius: 12px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+  background: #32324d;
+  color: white;
+}
+
+button:hover {
+  background: #404067;
+  transform: scale(1.05);
+}
+
+.operator {
+  background: #ff9500;
+  color: white;
+}
+
+.operator:hover {
+  background: #ffa733;
+}
+
+.equal {
+  background: #28c76f;
+  grid-column: span 1;
+}
+
+.equal:hover {
+  background: #3be584;
+}
+
+.zero {
+  grid-column: span 2;
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+  .calculator {
     padding: 15px;
-    background: transparent;
-    border-radius: 16px;
-    box-shadow: 0px 3px 15px rgba(113,115,119,0.5) ;
-}
+  }
 
-input{
-    border: none;
-    padding: 20px;
-    width: 320px;
-    margin: 10px;
-    font-size: 40px;
-    background: transparent;
-    text-align: right;
-    cursor: pointer;
-    box-shadow: 0px 3px 15px rgbs(113,115,119,0.1) ;
-    color:white;
-}
+  button {
+    height: 55px;
+    font-size: 18px;
+  }
 
-input::placeholder{
-    color:white;
-}
-
-button{
-    border: none;
-    margin: 10px;
-    width:60px;
+  .display input {
     height: 60px;
-    border-radius: 50%;
-    background:transparent;
-    color:white;
-    font-size: 20px;
-    box-shadow:-8px -8px 15px rgba(255,255,255,0.1);
-    cursor: pointer;
-}
-
-.equal-btn{
-    background-color: orange;
+    font-size: 24px;
+  }
 }
